@@ -4,7 +4,7 @@
       <router-link to="/"><h3>LOGO</h3></router-link>
     </div>
     <div class="nav__box-container">
-      <ButtonCart class="cart" />
+      <ButtonCart class="cart" :total="cart" />
       <svg
         @click="menuToggle = !menuToggle"
         class="icon icon--white nav__toggler"
@@ -22,25 +22,28 @@
     </ul>
   </nav>
 </template>
-  
+
 <script>
- import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import ButtonCart from '../../components/ButtonCart.vue';
+
+import { useStore } from 'vuex';
 export default {
   name: 'NavBar',
   components: { ButtonCart },
   setup() {
-    const menuToggle= ref(false)
-    const toggleClass= ref("collapsible--expanded")
+    const store = useStore();
+    const menuToggle = ref(false);
+    const toggleClass = ref('collapsible--expanded');
 
-    watch(menuToggle,(currentValue, oldValue)=>{
-      console.log(currentValue, oldValue)
-    })
-    return{
+    watch(menuToggle, (currentValue, oldValue) => {
+      console.log(currentValue, oldValue);
+    });
+    return {
       menuToggle,
-      toggleClass
-    }
-  
+      toggleClass,
+      cart:computed(() => store.state.cart.length),
+    };
   },
 };
 </script>
@@ -53,7 +56,7 @@ export default {
   flex-wrap: wrap;
   padding: 0 1rem;
   align-items: center;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .nav__list {

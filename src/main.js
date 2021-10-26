@@ -7,10 +7,11 @@ import App from './App.vue';
 import 'normalize.css';
 import './assets/css/styles.css';
 import router from './router'
+import store from './store'
 
 library.add(faShoppingBag);
 library.add( faUserSecret );
 library.add(faPlus);
-createApp(App).use(router)
+createApp(App).use(store).use(router)
   .component('font-awesome-icon', FontAwesomeIcon)
   .mount('#app');

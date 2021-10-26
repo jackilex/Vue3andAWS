@@ -7,46 +7,28 @@
       :price="data.price"
       :calories="data.calories"
       :type="data.type"
+      :id="data.id"
+      @product="product"
     />
   </section>
 </template>
 
 <script>
 import Card from '@/components/card.vue';
-import { ref } from 'vue';
+import {  computed } from 'vue';
+
+import { useStore } from 'vuex'
 export default {
   name: 'MerchBlock',
   components: { Card },
   setup() {
-    const api = ref([
-      {
-        title: 'Peanut Butter Chocolate',
-        price: 1.45,
-        calories: '100',
-        type: 'low',
-      },
-      {
-        title: 'Mango Paach bar',
-        price: 1.45,
-        calories: '100',
-        type: 'Mdm',
-      },
-      {
-        title: 'Vanilla Mint Bar',
-        price: 1.45,
-        calories: '100',
-        type: 'High',
-      },
-      {
-        title: 'Cookies and Cream Bar',
-        price: 1.45,
-        calories: '100',
-        type: 'Extra-high',
-      },
-    ]);
-
+      const store = useStore();
+    function product(val){
+      store.commit('addToCart',val)
+    }
     return {
-      api,
+      api: computed(() => store.state.products),
+      product
     };
   },
 };

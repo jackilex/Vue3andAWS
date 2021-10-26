@@ -18,7 +18,7 @@
       </li>
       <li class="list__item">
         <h3>${{priceVal}}</h3>
-        <button class="btn btn--primary btn--single-icon">
+        <button class="btn btn--primary btn--single-icon" @click="sendEvent">
           <font-awesome-icon
             :icon="['fas', 'plus']"
             size="lg"
@@ -34,6 +34,7 @@
 import {toRefs} from 'vue'
 import image1x from '../assets/images/codebars/codebars_bjjsx2_c_scale,w_200.png';
 import barRegular from '../assets/images/codebars/codebars_bjjsx2_c_scale,w_200.png';
+
 export default {
   name: 'ProductCard',
   props:{
@@ -41,16 +42,21 @@ export default {
     price: Number,
     calories: String,
     type: String,
+    id:Number
   },
-  setup(props) {
-    const {title, price, calories, type}= toRefs(props);
+  setup(props, context) {
+    const {title, price, calories, type,id}= toRefs(props);
+    function sendEvent(){
+      context.emit('product',id.value)
+    }
     return {
       image1x: image1x,
       barRegular: barRegular,
       titleVal:title,
       priceVal:price,
       calVal: calories,
-      typeVal:type
+      typeVal:type,
+      sendEvent
     };
   },
 };

@@ -34,7 +34,7 @@ export default {
     name:'IntroBlock',
     setup(){
         const image1=ref(image1x)
-
+    
         return{
             image1
         }
